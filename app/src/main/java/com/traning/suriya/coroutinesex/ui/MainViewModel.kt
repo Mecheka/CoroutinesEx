@@ -18,17 +18,15 @@ class MainViewModel : ViewModel() {
 
     fun getPost() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val result = mainRepository.getPost()
-            withContext(Dispatchers.Main) {
-                try {
-                    if (result.isSuccessful) {
+            try {
+                val result = mainRepository.getPost().await()
+                withContext(Dispatchers.Main) {
+                    if (result.isSuccessful){
                         _postLiveData.postValue(result.body())
                     }
-                } catch (e: HttpException) {
-
-                } catch (e: Exception) {
-
                 }
+            }catch (e : Exception){
+                e.printStackTrace()
             }
         }
     }

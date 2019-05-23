@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -19,6 +21,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    kapt {
+        correctErrorTypes = true
     }
 }
 
@@ -43,7 +49,15 @@ dependencies {
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
 
     // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //Airbnb Epoxy
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
+    // Card View
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

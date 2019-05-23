@@ -11,9 +11,7 @@ object RetrofitClient {
 
     const val BASE_URL = "https://jsonplaceholder.typicode.com"
 
-
-
-    fun makeRetrofitService(): JsonHolderService {
+    fun makeRetrofitService(): Retrofit {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
@@ -27,6 +25,9 @@ object RetrofitClient {
             .client(httpClient.build())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .build().create(JsonHolderService::class.java)
+            .build()
     }
+
+    val jsonHolderService: JsonHolderService =
+        makeRetrofitService().create(JsonHolderService::class.java)
 }
